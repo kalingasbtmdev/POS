@@ -24,7 +24,18 @@ function createLocalMQTTClient() {
   const hostname = window.composeApp.com.kalingas.pos.dev.mqtt.getLocalBrokerHost();
   const port = window.composeApp.com.kalingas.pos.dev.mqtt.getLocalBrokerPort();
 
-  localMqttUrl = `ws://${hostname}:${port}/mqtt`;
+  const protocol = window.location?.protocol === "https:" ? "wss" : "ws";
+  localMqttUrl = `${protocol}://${hostname}:${port}/mqtt`;
+  console.log(
+    "[LocalMQTT][create] host:",
+    hostname,
+    "port:",
+    port,
+    "protocol:",
+    protocol,
+    "url:",
+    localMqttUrl
+  );
 
   const clientId = "localClientId_" + Math.random().toString(36).substring(2, 15);
   localMqttOptions = {
@@ -32,6 +43,7 @@ function createLocalMQTTClient() {
     clean: true,
     connectTimeout: 30_000
   };
+  console.log("[LocalMQTT][create] options:", localMqttOptions);
 }
 
 function connect() {
