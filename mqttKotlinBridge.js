@@ -205,7 +205,7 @@ function unsubscribe(requestId, topic) {
 
 function publishLocal(requestId, topic, message) {
   if (window.localMqttClient) {
-    window.localMqttClient.publish(topic, message, { qos: 1 }, (err) => {
+    window.localMqttClient.publish(topic, message, { qos: 2 }, (err) => {
       if (err) console.error('Local publish failed:', err);
       reportLocalResult(requestId, !err, err?.message || 'Publish failed');
     });
@@ -216,7 +216,7 @@ function publishLocal(requestId, topic, message) {
 
 function subscribeLocal(requestId, topic) {
   if (window.localMqttClient) {
-    window.localMqttClient.subscribe(topic, { qos: 1 }, (err) => {
+    window.localMqttClient.subscribe(topic, { qos: 2 }, (err) => {
       if (err) console.error('Local subscription failed', err);
       reportLocalResult(requestId, !err, err?.message || 'Subscription failed');
     });
